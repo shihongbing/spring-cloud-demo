@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="account-server" />
+        <module name="auth-server" />
+        <module name="base-server" />
+        <module name="cache-service" />
+        <module name="gateway-server" />
+        <module name="project-common" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="account-server" target="1.8" />
+      <module name="auth-server" target="1.8" />
+      <module name="base-server" target="1.8" />
+      <module name="cache-service" target="1.8" />
+      <module name="gateway-server" target="1.8" />
+      <module name="project-common" target="1.8" />
+      <module name="spring-cloud-demo" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

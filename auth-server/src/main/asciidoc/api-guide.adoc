@@ -1,0 +1,79 @@
+= 认证授权微服务API手册
+:author: Shihongbing
+:email: piaolaidebing@126.com
+:revnumber: v1.0
+:revdate: 2020-06-13
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toc-title: 认证授权微服务接口 目录
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: CURL request
+:operation-http-response-title: Example response
+
+
+[[用户帐号]]
+== 用户帐号接口
+
+用户增删改查等接口描述
+
+
+[[用户新增]]
+=== 用户新增接口
+
+post请求创建用户
+
+operation::UserRestTest/userAddExample[snippets='request-headers,http-request,curl-request,request-fields,response-body,response-fields,response-fields-data']
+
+
+[[overview_http_status_codes]]
+== HTTP 状态码
+
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| 状态码 | 描述
+
+| `200`
+| 请求成功
+
+| `201`
+|请求成功并且服务器创建了新的资源
+
+| `204`
+| 服务器成功处理了请求，但没有返回任何内容
+
+| `400`
+| 请求格式不正确
+
+| `403`
+| 没有权限访次资源
+
+| `404`
+| 访问的资源不存在
+
+| `405`
+| 不允许的http方法
+
+| `408`
+| 服务器等候请求时发生超时
+
+| `500`
+| 服务器遇到错误，无法完成请求
+|===
+
+[[overview_errors]]
+== 401错误列子
+
+当发生401 Unauthorized错误时返回以下信息:
+
+include::{snippets}/error-example/response-fields.adoc[]
+
+这是一个发生401错误的例子返回数据:
+
+include::{snippets}/error-example/http-response.adoc[]
+
+

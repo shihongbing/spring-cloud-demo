@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      config:
+        enabled: true
+        format: yaml
+        prefix: config
+        default-context: account-server #设置应用程序使用的文件夹名称
+        profileSeparator: ','
+        data-key: data
+      # watch选项为配置监视功能，主要监视配置的改变
+        watch:
+          enabled: true
+          delay: 10000
+          wait-time: 30
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

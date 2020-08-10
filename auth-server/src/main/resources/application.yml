@@ -1,0 +1,97 @@
+spring:
+  application:
+    name: auth-server
+  profiles:
+    active: dev
+  cloud:
+    consul:
+      # 服务发现配置
+      discovery:
+        # 启用服务发现
+        enabled: true
+        # 启用服务注册
+        register: true
+        # 服务停止时取消注册
+        deregister: true
+        # 表示注册时使用IP而不是hostname
+        prefer-ip-address: true
+        # 执行监控检查的频率
+        health-check-interval: 30s
+        # 设置健康检查失败多长时间后，取消注册
+        health-check-critical-timeout: 30s
+        # 健康检查的路径
+        health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health
+        # 服务注册标识，格式为：应用名称+服务器IP+端口
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        service-name: auth-server
+    stream:
+      binders: #绑定器
+        defaultRabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                addresses: 106.55.159.234
+                port: 5672
+                username: admin
+                password: admin
+                virtual-host: /
+      bindings:
+        systemLogOutput: #系统日志生产者配置       #生产者绑定，这个是消息通道的名称
+          destination: 4a.systemlog #exchange名称，交换模式默认是topic
+          binder: defaultRabbit
+          content-type: application/json
+        systemLogInput:  #系统消费者配置
+          destination: 4a.systemlog
+          binder: defaultRabbit
+          group: for-all
+          content-type: application/json
+          consumer:
+            max-attempts: 3
+            concurrency: 1
+      rabbit:
+        bindings:
+          systemLogInput:
+            consumer:
+              max-concurrency: 4
+              prefetch: 5
+              requeue-rejected: false
+              republish-to-dlq: true
+
+    loadbalancer:
+      ribbon:
+        enabled: false
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/oauth/token"
+      - "/druid/**"
+      - "/rsa/publicKey"
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connect-timeout: 1000 #毫秒
+        read-timeout: 3000
+      account-server:
+        connect-timeout: 10000
+        read-timeout: 30000
+# hystrix 信号量隔离，60秒后自动超时 如果Hystrix超时时长小于feign的超时时长，那feign的超时设置就不会生效
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 60000
+
