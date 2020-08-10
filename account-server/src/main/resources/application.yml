@@ -31,10 +31,10 @@ spring:
           environment:
             spring:
               rabbitmq:
-                addresses: xxxxx
+                addresses: 106.55.159.234
                 port: 5672
-                username: xxx
-                password: xxx
+                username: admin
+                password: admin
                 virtual-host: /
       bindings:
         systemLogOutput: #系统日志生产者配置
