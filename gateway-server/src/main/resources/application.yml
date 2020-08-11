@@ -57,9 +57,9 @@ spring:
                 name: default
                 fallbackUri: forward:/defaultfallback # 只有该id下的服务会降级
   redis:
-    host: 106.55.159.234
-    port: 6379
-    password: 19881227=shb
+    host: xxxx
+    port: xxxx
+    password: xxxx
 
 server:
   port: 8080
