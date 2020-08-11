@@ -41,7 +41,7 @@ public class User extends BusinessObject {
     private String userName;
 
     @FieldDesc("手机号")
-    @NotBlank(groups = Add.class,message = "")
+    @NotBlank(groups = Add.class)
     @Pattern(regexp = BusinessConstants.PHONE_REG, message = "手机号格式不对",groups = {Add.class,Modify.class})
     private String phone;
 
